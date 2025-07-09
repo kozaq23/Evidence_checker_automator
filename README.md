@@ -10,7 +10,7 @@ Function: `identify_wp3_file(path)`
 - Loads an Excel file and inspects the structure.
 - Classification:
   - `"music"`: ≥400 rows and columns `Year`, `Album`, `Artist`, `Total Sales`.
-  - `"dashboard"`: ≥90 rows and includes `Name`, `Date`, `Department`, `Rating`.
+  - `"dashboard"`: ≥90 rows and includes `Name`, `Date`, `Department`, `Rating` in any order.
   - `"error"`: If file cannot be opened (e.g. still open in Excel).
 
 ---
@@ -23,7 +23,7 @@ Function: `select_best_sheet(excel)`
 - Detection logic:
   - **Dashboard**: sheet with `Rating` column and >90 non-null values.
   - **Music**: last column is numeric and has ≥400 values.
-- Fallback to `RAW DATA` or `TASK ONE` if no matches.
+- Fallback to `RAW DATA` or `TASK ONE` if no matches in other sheets.
 
 ---
 
@@ -48,7 +48,7 @@ Function: `select_best_sheet(excel)`
 - Reports each row with issues.
 
 ### `check_album_duplicates(df)`
-- Ensures `"Greatest Hits"` appears **more than once** in the `Album` column.
+- Ensures additional check of `"Greatest Hits"` appears **more than once** in the `Album` column.
 
 ### `check_total_sales(df, path, sheet)`
 - Verifies:
@@ -60,7 +60,7 @@ Function: `select_best_sheet(excel)`
 ### `check_table_format(df, path, sheet)`
 - Confirms use of Excel *Table* (structured data):
   - Must start at **A1**
-  - Match range of the dataset exactly
+  - Match range of the dataset exactly or until end of the sheet
   - Only one table per sheet allowed
 
 ---
@@ -110,9 +110,9 @@ Function: `select_best_sheet(excel)`
 - Supports:
   - Dark mode toggle
   - File selection (auto/manual)
-  - Live path display
+  - Live path display with name of the file in bold
   - Status bar feedback
-  - Message filtering: show/hide info, ok, error
+  - Message filtering: show/hide `info`, `ok`, `error`
 - Tooltips embedded for all major controls
 
 ---
